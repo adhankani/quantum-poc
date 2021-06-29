@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tde:template xml:lang="zxx" xmlns:tde="http://marklogic.com/xdmp/tde">
+  <tde:description>
+Extraction Template Generated from Entity Type Document
+graph uri: http://example.org/ICD10-1.0.0</tde:description>
+  <!-- The following line matches JSON and XML instances, but may be slower to index documents. -->
+  <tde:context>/(es:envelope|envelope)/(es:instance|instance)[es:info/es:version = '1.0.0' or info/version = '1.0.0'][ICD10]</tde:context>
+  <!-- Replace the above with the following line to match XML instances only.  This may speed up indexing
+        <tde:context>//es:instance[es:info/es:version = "1.0.0"]</tde:context>
+-->
+  <!-- Replace the above with the following line to match JSON instances only.  This may speed up indexing
+        <tde:context>//instance[info/version = "1.0.0"]</tde:context>
+-->
+  <tde:vars>
+    <tde:var>
+      <tde:name>RDF</tde:name>
+      <tde:val>"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</tde:val>
+    </tde:var>
+    <tde:var>
+      <tde:name>RDF_TYPE</tde:name>
+      <tde:val>sem:iri(concat($RDF, "type"))</tde:val>
+    </tde:var>
+  </tde:vars>
+  <tde:path-namespaces>
+    <tde:path-namespace>
+      <tde:prefix>es</tde:prefix>
+      <tde:namespace-uri>http://marklogic.com/entity-services</tde:namespace-uri>
+    </tde:path-namespace>
+  </tde:path-namespaces>
+  <tde:templates>
+    <tde:template>
+      <tde:context>.//ICD10[node()]</tde:context>
+      <tde:vars>
+	<tde:var>
+	  <tde:name>subject-iri</tde:name>
+	  <tde:val>sem:iri(concat("http://example.org/ICD10-1.0.0/ICD10/", fn:encode-for-uri(./code)))</tde:val>
+	</tde:var>
+      </tde:vars>
+      <tde:triples>
+	<tde:triple>
+	  <tde:subject>
+	    <tde:val>$subject-iri</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:subject>
+	  <tde:predicate>
+	    <tde:val>$RDF_TYPE</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:predicate>
+	  <tde:object>
+	    <tde:val>sem:iri("http://example.org/ICD10-1.0.0/ICD10")</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:object>
+	</tde:triple>
+	<tde:triple>
+	  <tde:subject>
+	    <tde:val>$subject-iri</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:subject>
+	  <tde:predicate>
+	    <tde:val>sem:iri("http://www.w3.org/2000/01/rdf-schema#isDefinedBy")</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:predicate>
+	  <tde:object>
+	    <tde:val>fn:base-uri(.)</tde:val>
+	    <tde:invalid-values>ignore</tde:invalid-values>
+	  </tde:object>
+	</tde:triple>
+      </tde:triples>
+    </tde:template>
+    <tde:template>
+      <tde:context>.//ICD10[node()]</tde:context>
+      <tde:rows>
+	<tde:row>
+	  <tde:schema-name>ICD10</tde:schema-name>
+	  <tde:view-name>ICD10</tde:view-name>
+	  <tde:view-layout>sparse</tde:view-layout>
+	  <tde:columns>
+	    <tde:column>
+	      <tde:name>code</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>code</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
+	      <tde:name>validity</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>validity</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
+	      <tde:name>short_description</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>short_description</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
+	      <tde:name>long_description</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>long_description</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
+	      <tde:name>full_description</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>full_description</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
+	      <tde:name>code_type</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>code_type</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	  </tde:columns>
+	</tde:row>
+      </tde:rows>
+    </tde:template>
+  </tde:templates>
+</tde:template>

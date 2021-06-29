@@ -1,2 +1,5 @@
 data/
 logs/
+tasks.txt
+logs/hub-central.log
+.gradle/

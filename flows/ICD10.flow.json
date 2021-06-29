@@ -1,0 +1,13 @@
+{
+  "name": "ICD10",
+  "steps": {
+    "1": {
+      "stepId": "ICD10-Ingest-ingestion"
+    },
+    "2": {
+      "stepId": "ICD10-Mapping-mapping"
+    }
+  },
+  "description": "Load ICD10 Data",
+  "lastUpdated": "2021-06-28T08:43:05.8670563-06:00"
+}

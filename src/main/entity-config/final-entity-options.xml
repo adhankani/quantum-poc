@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <search:options xml:lang="zxx" xmlns:search="http://marklogic.com/appservices/search">
   <search:constraint name="Collection">
     <search:collection/>
@@ -18,6 +17,81 @@
       <search:element ns="http://marklogic.com/entity-services" name="title"/>
     </search:value>
   </search:constraint>
+  <search:constraint name="ICD10">
+    <search:container>
+      <search:json-property>ICD10</search:json-property>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="ICD10-xml">
+    <search:container>
+      <search:element ns="" name="ICD10"/>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="code">
+    <search:value>
+      <search:element ns="" name="code"/>
+    </search:value>
+  </search:constraint>
+  <search:constraint name="ICD10.code">
+    <search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/ICD10/code</search:path-index>
+      <search:facet-option>limit=25</search:facet-option>
+    </search:range>
+  </search:constraint>
+  <search:constraint name="ICD10.code_type">
+    <search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/ICD10/code_type</search:path-index>
+      <search:facet-option>limit=25</search:facet-option>
+    </search:range>
+  </search:constraint>
+  <search:constraint name="InsuredPerson">
+    <search:container>
+      <search:json-property>InsuredPerson</search:json-property>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="InsuredPerson-xml">
+    <search:container>
+      <search:element ns="" name="InsuredPerson"/>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="Claim">
+    <search:container>
+      <search:json-property>Claim</search:json-property>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="Claim-xml">
+    <search:container>
+      <search:element ns="" name="Claim"/>
+    </search:container>
+  </search:constraint>
+  <search:constraint name="Claim.serviceStartDate">
+    <search:range type="xs:date" facet="true">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceStartDate</search:path-index>
+      <search:facet-option>limit=25</search:facet-option>
+    </search:range>
+  </search:constraint>
+  <search:constraint name="Claim.serviceEndDate">
+    <search:range type="xs:date" facet="true">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceEndDate</search:path-index>
+      <search:facet-option>limit=25</search:facet-option>
+    </search:range>
+  </search:constraint>
+  <search:tuples name="ICD10">
+    <search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/ICD10/code</search:path-index>
+    </search:range>
+    <search:range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/ICD10/code_type</search:path-index>
+    </search:range>
+  </search:tuples>
+  <search:tuples name="Claim">
+    <search:range type="xs:date" facet="true">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceStartDate</search:path-index>
+    </search:range>
+    <search:range type="xs:date" facet="true">
+      <search:path-index xmlns:es="http://marklogic.com/entity-services">/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceEndDate</search:path-index>
+    </search:range>
+  </search:tuples>
   <!--Uncomment to return no results for a blank search, rather than the default of all results
  <search:term xmlns:search="http://marklogic.com/appservices/search">
   <search:empty apply="no-results"/>
@@ -30,7 +104,7 @@
   <search:search-option>unfiltered</search:search-option>
   <!--Modify document extraction to change results returned-->
   <search:extract-document-data selected="include">
-    <search:extract-path xmlns:es="http://marklogic.com/entity-services">//*:instance/()</search:extract-path>
+    <search:extract-path xmlns:es="http://marklogic.com/entity-services">//*:instance/(ICD10|InsuredPerson|Claim)</search:extract-path>
   </search:extract-document-data>
   <!--Change or remove this additional-query to broaden search beyond entity instance documents-->
   <!--To return facets, change this option to 'true' and edit constraints-->

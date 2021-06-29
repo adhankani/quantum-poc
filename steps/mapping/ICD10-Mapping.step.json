@@ -1,0 +1,54 @@
+{
+  "collections": [
+    "ICD10-Mapping"
+  ],
+  "additionalCollections": [
+    "ICD10"
+  ],
+  "permissions": "data-hub-common,read,data-hub-common,update",
+  "batchSize": 100,
+  "validateEntity": "doNotValidate",
+  "targetFormat": "JSON",
+  "attachSourceDocument": true,
+  "name": "ICD10-Mapping",
+  "targetEntityType": "http://example.org/ICD10-1.0.0/ICD10",
+  "description": "",
+  "collection": "ICD10-Ingest",
+  "selectedSource": "collection",
+  "sourceQuery": "cts.collectionQuery(['ICD10-Ingest'])",
+  "targetDatabase": "quantum-FINAL",
+  "headers": { },
+  "interceptors": [ ],
+  "provenanceGranularityLevel": "off",
+  "customHook": { },
+  "sourceDatabase": "quantum-STAGING",
+  "stepDefinitionName": "entity-services-mapping",
+  "stepDefinitionType": "mapping",
+  "stepId": "ICD10-Mapping-mapping",
+  "acceptsBatch": true,
+  "lastUpdated": "2021-06-29T11:42:10.9211504-06:00",
+  "uriExpression": "$URI",
+  "properties": {
+    "type": {
+      "sourcedFrom": "if (CODE_TYPE = \"3\") then \"PCS\" else if (CODE_TYPE = \"1\") then \"CD\" else \"HCPCS\""
+    },
+    "code": {
+      "sourcedFrom": "CODE | HCPCS_CODE | ICD10_CODE"
+    },
+    "validity": {
+      "sourcedFrom": "if (fn:exists(VALIDITY)) then VALIDITY else \"O\""
+    },
+    "short_description": {
+      "sourcedFrom": "SHORT_DESCRIPTION"
+    },
+    "long_description": {
+      "sourcedFrom": "LONG_DESCRIPTION"
+    },
+    "full_description": {
+      "sourcedFrom": "FULL_DESCRIPTION"
+    },
+    "code_type": {
+      "sourcedFrom": "if (CODE_TYPE=\"1\") then \"CM\" else if (CODE_TYPE=\"3\") then \"PCS\" else \"HCPCS\""
+    }
+  }
+}

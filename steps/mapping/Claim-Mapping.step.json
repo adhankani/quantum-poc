@@ -1,0 +1,144 @@
+{
+  "collections": [
+    "Claim-Mapping",
+    "Claim"
+  ],
+  "additionalCollections": [ ],
+  "permissions": "data-hub-common,read,data-hub-common,update",
+  "batchSize": 100,
+  "validateEntity": "doNotValidate",
+  "targetFormat": "JSON",
+  "attachSourceDocument": true,
+  "name": "Claim-Mapping",
+  "targetEntityType": "http://example.org/Claim-1.0.0/Claim",
+  "description": "",
+  "collection": "Claims-Ingest",
+  "selectedSource": "collection",
+  "sourceQuery": "cts.collectionQuery(['Claims-Ingest'])",
+  "targetDatabase": "quantum-FINAL",
+  "headers": { },
+  "interceptors": [ ],
+  "provenanceGranularityLevel": "off",
+  "customHook": { },
+  "sourceDatabase": "quantum-STAGING",
+  "stepDefinitionName": "entity-services-mapping",
+  "stepDefinitionType": "mapping",
+  "stepId": "Claim-Mapping-mapping",
+  "acceptsBatch": true,
+  "lastUpdated": "2021-06-28T15:46:59.493854-06:00",
+  "relatedEntityMappings": [ ],
+  "uriExpression": "$URI",
+  "properties": {
+    "claimId": {
+      "sourcedFrom": "CLAIM_ID"
+    },
+    "insuredLastName": {
+      "sourcedFrom": "INSURED_LAST"
+    },
+    "insuredFirstName": {
+      "sourcedFrom": "INSURED_FIRST"
+    },
+    "patientLastName": {
+      "sourcedFrom": "PATIENT_LAST"
+    },
+    "patientFirstName": {
+      "sourcedFrom": "PATIENT_FIRST"
+    },
+    "patientDOB": {
+      "sourcedFrom": "PATIENT_DOB"
+    },
+    "diagnosisCode": {
+      "sourcedFrom": "DIAGNO_CODE"
+    },
+    "diagnosisPrimary": {
+      "sourcedFrom": "DIAGNO_PRIMARY"
+    },
+    "serviceStartDate": {
+      "sourcedFrom": "FROM_DATE"
+    },
+    "serviceEndDate": {
+      "sourcedFrom": "TO_DATE"
+    },
+    "drgCode": {
+      "sourcedFrom": "DRG_CODE"
+    },
+    "insuredId": {
+      "sourcedFrom": "INSURED_ID"
+    },
+    "patientGender": {
+      "sourcedFrom": "PATIENT_GENDER"
+    },
+    "patientDependentNumber": {
+      "sourcedFrom": "floor(DEPENDENT_NUMBER)"
+    },
+    "insuredZipCode": {
+      "sourcedFrom": "INSURED_ZIP"
+    },
+    "billingProviderZipCode": {
+      "sourcedFrom": "BILLING_PROVIDER_ZIP"
+    },
+    "claimType": {
+      "sourcedFrom": "CLAIM_TYPE"
+    },
+    "placeOfService": {
+      "sourcedFrom": "PLACE_OF_SVC"
+    },
+    "procedureCode": {
+      "sourcedFrom": "PROC_CODE"
+    },
+    "paidDate": {
+      "sourcedFrom": "PAID_DATE"
+    },
+    "submittedAmount": {
+      "sourcedFrom": "if (fn:exists(SUBMITTED_AMT)) then SUBMITTED_AMT else 0"
+    },
+    "allowedAmount": {
+      "sourcedFrom": "if (fn:exists(ALLOWED_AMT)) then ALLOWED_AMT else 0"
+    },
+    "coinsuranceAmount": {
+      "sourcedFrom": "if (fn:exists(COINS_AMT)) then COINS_AMT else 0"
+    },
+    "deductibleAmount": {
+      "sourcedFrom": "if (fn:exists(DEDUCT_AMT)) then DEDUCT_AMT else 0"
+    },
+    "copayAmount": {
+      "sourcedFrom": "if (fn:exists(COPAY_AMT)) then COPAY_AMT else 0"
+    },
+    "discountAmount": {
+      "sourcedFrom": "if (fn:exists(DISCOUNT_AMT)) then DISCOUNT_AMT else 0"
+    },
+    "netPaymentAmount": {
+      "sourcedFrom": "if (fn:exists(NET_PAYMENT_AMT)) then NET_PAYMENT_AMT else 0"
+    },
+    "overPaymentAmount": {
+      "sourcedFrom": "if (fn:exists(OVERPAYMENT_AMT)) then OVERPAYMENT_AMT else 0"
+    },
+    "employerId": {
+      "sourcedFrom": "EMPLOYER_ID"
+    },
+    "npiRenderingProvider": {
+      "sourcedFrom": "NPI_RENDERING_PROVIDER"
+    },
+    "npiBillingProvider": {
+      "sourcedFrom": "NPI_BILLING_PROVIDER"
+    },
+    "npiAttendingProvider": {
+      "sourcedFrom": "NPI_ATTENDING_PROVIDER"
+    },
+    "npiReferencingProvider": {
+      "sourcedFrom": ""
+    },
+    "npiFacility": {
+      "sourcedFrom": "NPI_FACILITY"
+    },
+    "npiOperatingProvider": {
+      "sourcedFrom": "NPI_OPERATING_PROVIDER"
+    },
+    "employerGroupName": {
+      "sourcedFrom": "EMPLOYER_GROUP_NAME"
+    },
+    "npiReferringProvider": {
+      "sourcedFrom": "NPI_REFERRING_PROVIDER"
+    }
+  }
+}

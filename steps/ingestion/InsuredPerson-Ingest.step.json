@@ -1,0 +1,32 @@
+{
+  "headers": { },
+  "collections": [
+    "InsuredPerson-Ingest"
+  ],
+  "permissions": "data-hub-common,read,data-hub-common,update",
+  "batchSize": 100,
+  "name": "InsuredPerson-Ingest",
+  "description": "Insured eligibility person",
+  "sourceFormat": "csv",
+  "separator": ",",
+  "targetFormat": "JSON",
+  "sourceName": "",
+  "sourceType": "",
+  "outputURIPrefix": "/ingest/quantum/insured/",
+  "additionalCollections": [ ],
+  "targetDatabase": "quantum-STAGING",
+  "interceptors": [
+    {
+      "path": "/custom-modules/ingestion/insured-person-intercepter-after.sjs",
+      "vars": { },
+      "when": "beforeContentPersisted"
+    }
+  ],
+  "provenanceGranularityLevel": "off",
+  "customHook": { },
+  "stepDefinitionName": "default-ingestion",
+  "stepDefinitionType": "ingestion",
+  "stepId": "InsuredPerson-Ingest-ingestion",
+  "lastUpdated": "2021-06-28T13:43:08.080784-06:00",
+  "sourceDatabase": "quantum-STAGING"
+}

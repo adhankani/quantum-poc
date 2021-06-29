@@ -1,0 +1,92 @@
+{
+  "collections": [
+    "InsuredPerson-Mapping",
+    "InsuredPerson"
+  ],
+  "additionalCollections": [ ],
+  "permissions": "data-hub-common,read,data-hub-common,update",
+  "batchSize": 100,
+  "validateEntity": "doNotValidate",
+  "targetFormat": "JSON",
+  "attachSourceDocument": false,
+  "name": "InsuredPerson-Mapping",
+  "targetEntityType": "http://example.org/InsuredPerson-1.0.0/InsuredPerson",
+  "description": "Map a potential insured person",
+  "collection": "InsuredPerson-Ingest",
+  "selectedSource": "collection",
+  "sourceQuery": "cts.collectionQuery(['InsuredPerson-Ingest'])",
+  "targetDatabase": "quantum-FINAL",
+  "headers": { },
+  "interceptors": [ ],
+  "provenanceGranularityLevel": "off",
+  "customHook": { },
+  "sourceDatabase": "quantum-STAGING",
+  "stepDefinitionName": "entity-services-mapping",
+  "stepDefinitionType": "mapping",
+  "stepId": "InsuredPerson-Mapping-mapping",
+  "acceptsBatch": true,
+  "lastUpdated": "2021-06-28T16:31:48.1470566-06:00",
+  "uriExpression": "$URI",
+  "properties": {
+    "insuredId": {
+      "sourcedFrom": "INSURED_ID"
+    },
+    "insuredLastName": {
+      "sourcedFrom": "LAST_NAME"
+    },
+    "insuredFirstName": {
+      "sourcedFrom": "FIRST_AND_MIDDLE"
+    },
+    "insuredDOB": {
+      "sourcedFrom": "DOB"
+    },
+    "insuredGender": {
+      "sourcedFrom": "GENDER"
+    },
+    "hireDate": {
+      "sourcedFrom": "HIREDATE"
+    },
+    "medicalEffectiveDate": {
+      "sourcedFrom": "MED_EFF_DATE"
+    },
+    "medicalTerminationDate": {
+      "sourcedFrom": "if (fn:exists(MED_TRM_DATE) and MED_TRM_DATE != \"\") then MED_TRM_DATE else \"9999-12-31\""
+    },
+    "lastName": {
+      "sourcedFrom": "LAST_NAME"
+    },
+    "firstName": {
+      "sourcedFrom": "FIRST_AND_MIDDLE"
+    },
+    "DOB": {
+      "sourcedFrom": "DOB"
+    },
+    "gender": {
+      "sourcedFrom": "GENDER"
+    },
+    "insuredSSN": {
+      "sourcedFrom": "INSURED_SSN"
+    },
+    "zipCode": {
+      "sourcedFrom": "ZIP"
+    },
+    "dependentSSN": {
+      "sourcedFrom": "DEPENDENT_SSN"
+    },
+    "medicalCoverageLevel": {
+      "sourcedFrom": "MED_COV_LEVEL"
+    },
+    "dentalCoverageLevel": {
+      "sourcedFrom": "DEN_COV_LEVEL"
+    },
+    "visionCoverageLevel": {
+      "sourcedFrom": "VIS_COV_LEVEL"
+    },
+    "medicalPlanType": {
+      "sourcedFrom": "MED_PLAN_TYPE"
+    },
+    "dentalPlanType": {
+      "sourcedFrom": "DEN_PLAN_TYPE"
+    }
+  }
+}

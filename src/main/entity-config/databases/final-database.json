@@ -1,0 +1,38 @@
+{
+  "lang": "zxx",
+  "path-namespace": [
+    {
+      "prefix": "es",
+      "namespace-uri": "http://marklogic.com/entity-services"
+    }
+  ],
+  "range-path-index": [
+    {
+      "invalid-values": "reject",
+      "path-expression": "/(es:envelope|envelope)/(es:instance|instance)/ICD10/code",
+      "range-value-positions": false,
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint"
+    },
+    {
+      "invalid-values": "reject",
+      "path-expression": "/(es:envelope|envelope)/(es:instance|instance)/ICD10/code_type",
+      "range-value-positions": false,
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint"
+    },
+    {
+      "invalid-values": "reject",
+      "path-expression": "/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceStartDate",
+      "range-value-positions": false,
+      "scalar-type": "date"
+    },
+    {
+      "invalid-values": "reject",
+      "path-expression": "/(es:envelope|envelope)/(es:instance|instance)/Claim/serviceEndDate",
+      "range-value-positions": false,
+      "scalar-type": "date"
+    }
+  ],
+  "database-name": "quantum-FINAL"
+}

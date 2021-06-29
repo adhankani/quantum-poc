@@ -1,0 +1,13 @@
+{
+  "name": "Insured",
+  "steps": {
+    "1": {
+      "stepId": "InsuredPerson-Ingest-ingestion"
+    },
+    "2": {
+      "stepId": "InsuredPerson-Mapping-mapping"
+    }
+  },
+  "description": "Eligible Insured Persons",
+  "lastUpdated": "2021-06-28T11:01:59.4862416-06:00"
+}

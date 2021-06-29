@@ -1,0 +1,12 @@
+{
+  "name": "Claim",
+  "steps": {
+    "1": {
+      "stepId": "Claims-Ingest-ingestion"
+    },
+    "2": {
+      "stepId": "Claim-Mapping-mapping"
+    }
+  },
+  "lastUpdated": "2021-06-25T16:50:19.7263551-06:00"
+}

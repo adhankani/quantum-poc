@@ -1,0 +1,25 @@
+{
+  "headers": { },
+  "collections": [
+    "Claims-Ingest"
+  ],
+  "permissions": "data-hub-common,read,data-hub-common,update",
+  "batchSize": 100,
+  "name": "Claims-Ingest",
+  "description": "Ingest Quantum Claims",
+  "sourceFormat": "csv",
+  "separator": ",",
+  "targetFormat": "JSON",
+  "sourceName": "",
+  "sourceType": "",
+  "outputURIPrefix": "/ingest/quantum/claim/",
+  "additionalCollections": [ ],
+  "targetDatabase": "quantum-STAGING",
+  "interceptors": [ ],
+  "provenanceGranularityLevel": "off",
+  "customHook": { },
+  "stepDefinitionName": "default-ingestion",
+  "stepDefinitionType": "ingestion",
+  "stepId": "Claims-Ingest-ingestion",
+  "lastUpdated": "2021-06-25T12:37:19.3559497-06:00"
+}
