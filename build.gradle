@@ -1,0 +1,22 @@
+
+buildscript {
+  repositories {
+    maven {url 'http://developer.marklogic.com/maven2/'}
+	maven {url 'http://distro.marklogic.com/nexus/repository/maven-releases/'}
+    jcenter()
+    mavenLocal()
+  }
+  dependencies {
+    classpath "com.marklogic:marklogic-unit-test-client:1.0.0"
+    classpath "com.marklogic:ml-gradle:3.14.0"
+	classpath "com.marklogic:ml-data-hub:5.5.0"
+  }
+}
+
+plugins {
+  // Gradle Properties plugin
+  id 'net.saliman.properties' version '1.4.6'
+
+  // Data Hub plugin
+  id 'com.marklogic.ml-data-hub' version '5.5.0'
+}
