@@ -221,6 +221,12 @@
           "facetable": false,
           "sortable": false,
           "collation": "http://marklogic.com/collation/codepoint"
+        },
+        "benefitCodeDescription": {
+          "datatype": "string",
+          "facetable": false,
+          "sortable": false,
+          "collation": "http://marklogic.com/collation/codepoint"
         }
       },
       "description": "Quantum Claim Entity",

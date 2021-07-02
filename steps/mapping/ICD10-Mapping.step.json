@@ -9,7 +9,7 @@
   "batchSize": 100,
   "validateEntity": "doNotValidate",
   "targetFormat": "JSON",
-  "attachSourceDocument": true,
+  "attachSourceDocument": false,
   "name": "ICD10-Mapping",
   "targetEntityType": "http://example.org/ICD10-1.0.0/ICD10",
   "description": "",
@@ -26,7 +26,7 @@
   "stepDefinitionType": "mapping",
   "stepId": "ICD10-Mapping-mapping",
   "acceptsBatch": true,
-  "lastUpdated": "2021-06-29T11:42:10.9211504-06:00",
+  "lastUpdated": "2021-07-01T14:31:56.0353525-06:00",
   "uriExpression": "$URI",
   "properties": {
     "type": {
@@ -49,6 +49,9 @@
     },
     "code_type": {
       "sourcedFrom": "if (CODE_TYPE=\"1\") then \"CM\" else if (CODE_TYPE=\"3\") then \"PCS\" else \"HCPCS\""
+    },
+    "alt_code": {
+      "sourcedFrom": "fn:replace(CODE | HCPCS_CODE | ICD10_CODE,'\\.','')"
     }
   }
 }

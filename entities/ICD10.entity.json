@@ -42,6 +42,12 @@
           "facetable": true,
           "sortable": false,
           "collation": "http://marklogic.com/collation/codepoint"
+        },
+        "alt_code": {
+          "datatype": "string",
+          "facetable": false,
+          "sortable": false,
+          "collation": "http://marklogic.com/collation/codepoint"
         }
       },
       "description": "ICD10 Procedure and Diagnosis Codes",

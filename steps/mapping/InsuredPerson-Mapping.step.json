@@ -25,7 +25,7 @@
   "stepDefinitionType": "mapping",
   "stepId": "InsuredPerson-Mapping-mapping",
   "acceptsBatch": true,
-  "lastUpdated": "2021-06-28T16:31:48.1470566-06:00",
+  "lastUpdated": "2021-07-01T13:08:46.4265414-06:00",
   "uriExpression": "$URI",
   "properties": {
     "insuredId": {

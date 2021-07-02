@@ -117,6 +117,13 @@ graph uri: http://example.org/ICD10-1.0.0</tde:description>
 	      <tde:nullable>true</tde:nullable>
 	      <tde:invalid-values>ignore</tde:invalid-values>
 	    </tde:column>
+	    <tde:column>
+	      <tde:name>alt_code</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>alt_code</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
 	  </tde:columns>
 	</tde:row>
       </tde:rows>

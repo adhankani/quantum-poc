@@ -328,6 +328,13 @@ graph uri: http://example.org/Claim-1.0.0</tde:description>
 	      <tde:invalid-values>ignore</tde:invalid-values>
 	    </tde:column>
 	    <tde:column>
+	      <tde:name>benefitCodeDescription</tde:name>
+	      <tde:scalar-type>string</tde:scalar-type>
+	      <tde:val>benefitCodeDescription</tde:val>
+	      <tde:nullable>true</tde:nullable>
+	      <tde:invalid-values>ignore</tde:invalid-values>
+	    </tde:column>
+	    <tde:column>
 	      <tde:name>DataHubGeneratedPrimaryKey</tde:name>
 	      <tde:scalar-type>string</tde:scalar-type>
 	      <tde:val>xdmp:node-uri(.) || '#' || fn:position()</tde:val>

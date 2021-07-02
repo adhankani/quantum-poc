@@ -8,7 +8,7 @@
   "batchSize": 100,
   "validateEntity": "doNotValidate",
   "targetFormat": "JSON",
-  "attachSourceDocument": true,
+  "attachSourceDocument": false,
   "name": "Claim-Mapping",
   "targetEntityType": "http://example.org/Claim-1.0.0/Claim",
   "description": "",
@@ -17,7 +17,13 @@
   "sourceQuery": "cts.collectionQuery(['Claims-Ingest'])",
   "targetDatabase": "quantum-FINAL",
   "headers": { },
-  "interceptors": [ ],
+  "interceptors": [
+    {
+      "path": "/custom-modules/mapping/claim-interceptor-after.sjs",
+      "vars": { },
+      "when": "beforeContentPersisted"
+    }
+  ],
   "provenanceGranularityLevel": "off",
   "customHook": { },
   "sourceDatabase": "quantum-STAGING",
@@ -25,7 +31,7 @@
   "stepDefinitionType": "mapping",
   "stepId": "Claim-Mapping-mapping",
   "acceptsBatch": true,
-  "lastUpdated": "2021-06-28T15:46:59.493854-06:00",
+  "lastUpdated": "2021-07-01T13:08:45.7839876-06:00",
   "relatedEntityMappings": [ ],
   "uriExpression": "$URI",
   "properties": {
@@ -139,6 +145,9 @@
     },
     "npiReferringProvider": {
       "sourcedFrom": "NPI_REFERRING_PROVIDER"
+    },
+    "benefitCodeDescription": {
+      "sourcedFrom": "BENEFIT_CODE_DESCRIPTION"
     }
   }
 }

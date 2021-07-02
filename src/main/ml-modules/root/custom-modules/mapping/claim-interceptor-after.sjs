@@ -35,6 +35,5 @@ contentArray.forEach(content => {
         if (npis === '') {
             content.context.collections.push("NPI_MISSING_ERROR");
         }
-
     }
 });
