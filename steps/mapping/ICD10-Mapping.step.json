@@ -26,7 +26,7 @@
   "stepDefinitionType": "mapping",
   "stepId": "ICD10-Mapping-mapping",
   "acceptsBatch": true,
-  "lastUpdated": "2021-07-01T14:31:56.0353525-06:00",
+  "lastUpdated": "2021-07-07T13:30:27.8272606-06:00",
   "uriExpression": "$URI",
   "properties": {
     "type": {
