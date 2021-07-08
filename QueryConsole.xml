@@ -1,0 +1,255 @@
+<export><workspace name="Quantum"><query name="Delete" focus="true" listorder="1" taborder="1" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+declareUpdate();
+const dirname = "/ingest/quantum/claim/";
+const count = xdmp.directory(dirname).toObject().length;
+xdmp.directoryDelete(dirname);
+"Deleted " + count;
+</query><query name="Claim Line #" focus="false" listorder="2" taborder="2" active="false" database="5372172933790329518" server="13660127523684743750" database-name="" server-name="" mode="xquery">xquery version "1.0-ml";
+/*[//*[name()="CLM_LINE_#"][.="11.0"]]</query><query name="Diagnosis" focus="false" listorder="3" taborder="2" active="false" database="5372172933790329518" server="13660127523684743750" database-name="" server-name="" mode="xquery">xquery version "1.0-ml";
+for $primary in //DIAGNO_PRIMARY[.!=""]
+let $claim := $primary//ancestor::instance
+return concat($primary, ", ", $claim/DIAGNO_CODE)</query><query name="Set source DB" focus="false" listorder="4" taborder="2" active="false" database="5372172933790329518" server="13660127523684743750" database-name="" server-name="" mode="javascript">'use strict';
+declareUpdate();
+//const uri = "/steps/mapping/InsuredPerson-Mapping.step.json";
+const uri = "/steps/ingestion/Claims-Ingest.step.json";
+
+  const perms = xdmp.documentGetPermissions(uri);
+  const colls = xdmp.documentGetCollections(uri);
+  let doc = cts.doc(uri).toObject();
+  //doc.sourceDatabase = "quantum-STAGING";
+  doc.targetDatabase = "quantum-STAGING";
+  //doc.targetEntityType = "http://example.org/InsuredPerson-1.0.0/InsuredPerson";
+  //doc.collections = ["ICD10-Mapping"];
+
+  xdmp.documentInsert(uri, doc);
+  xdmp.documentSetPermissions(uri, perms);
+  xdmp.documentSetCollections(uri, colls);
+doc;</query><query name="Query 1" focus="false" listorder="5" taborder="5" active="false" database="5372172933790329518" server="13660127523684743750" database-name="" server-name="" mode="xquery">//ALLOWED_AMT</query><query name="Claim SQL" focus="false" listorder="6" taborder="1" active="false" database="12493118002161842531" server="8825663742936403790" database-name="" server-name="" mode="sql">-- query from FINAL Database
+SELECT * FROM Claim AS clm WHERE clm.diagnosisPrimary IN ('S3210XD','R079','C61') LIMIT 10
+
+</query><query name="Claim DOB" focus="false" listorder="7" taborder="1" active="false" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="xquery">(//Claim)[1]
+
+</query><query name="Find Diabetes Supplies" focus="false" listorder="8" taborder="2" active="false" database="12493118002161842531" server="8825663742936403790" database-name="" server-name="" mode="javascript">'use strict';
+cts.search(
+  cts.andQuery([
+    cts.wordQuery("diabetes")
+  ]),['unfiltered','faceted']).toObject().map(
+    result =&gt; {
+      const resultObj = result.toObject().envelope.instance.ICD10;
+      return `${resultObj.code_type}: ${resultObj.code}: ${resultObj.full_description}`;
+    }
+);
+
+</query><query name="Find E/R's" focus="false" listorder="9" taborder="2" active="false" database="12493118002161842531" server="8825663742936403790" database-name="" server-name="" mode="javascript">cts.search(cts.jsonPropertyWordQuery("benefitCodeDescription",["e/r","emergency room"]));
+</query><query name="Query 2" focus="false" listorder="10" taborder="2" active="false" database="12493118002161842531" server="8825663742936403790" database-name="" server-name="" mode="javascript">const op = require('/MarkLogic/optic');
+const claim = op.fromView(null, "Claim");
+claim
+  .select(["claimId","claimType","benefitCodeDescription"])
+  .where(
+    cts.andQuery([
+      cts.jsonPropertyWordQuery("benefitCodeDescription",["e/r","emergency room"]),
+    ])
+  )
+  .limit(1000)
+  .result()</query><query name="Search Claims with Diabetes" focus="false" listorder="11" taborder="2" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+let diabetesCodes = cts.search(
+  cts.andQuery([
+    cts.collectionQuery("ICD10"),
+    cts.wordQuery("diabetes")
+  ]),['unfiltered']).toObject().map(
+    result =&gt; {
+      const resultObj = result.toObject().envelope.instance.ICD10;
+      return `${resultObj.alt_code}`;
+    }
+);
+let results = cts.search(
+  cts.andQuery([
+    cts.collectionQuery("Claim"),
+    cts.orQuery([
+      cts.jsonPropertyValueQuery("diagnosisPrimary", diabetesCodes),
+      cts.jsonPropertyValueQuery("procedureCode", diabetesCodes)
+    ])
+  ])
+).toObject().map(result =&gt; result.toObject().envelope.instance.Claim);
+let retObj = {count: results.length, results: results};
+retObj;
+</query><query name="ICD10 SQL" focus="false" listorder="12" taborder="1" active="false" database="12493118002161842531" server="8825663742936403790" database-name="" server-name="" mode="sql">-- query
+SELECT code, alt_code, full_description FROM ICD10 AS icd WHERE icd.full_description LIKE '%diabetes%' LIMIT 150</query><query name="Optic ER Visit" focus="false" listorder="13" taborder="3" active="false" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+const claim = op.fromView(null, "Claim");
+const q = claim
+  .select(["claimId","claimType","benefitCodeDescription"])
+  .where(cts.jsonPropertyWordQuery("benefitCodeDescription",["e/r","emergency room"]))
+  .limit(1000);
+
+q.result();
+
+//encodeURIComponent(JSON.stringify(q.export()));
+</query><query name="SQL Diabetes" focus="false" listorder="14" taborder="3" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="sql">-- query
+SELECT clm.claimId, clm.diagnosisPrimary, clm.procedureCode, clm.netPaymentAmount, icd.code, clm.benefitCodeDescription, icd.full_description
+FROM Claim clm
+INNER JOIN ICD10 icd
+ON (clm.diagnosisPrimary = icd.alt_code)
+WHERE (icd.full_description LIKE '%diabetes%')</query><query name="Optic Diabetes" focus="false" listorder="15" taborder="4" active="false" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+const claim = op.fromView(null, "Claim");
+const icd = op.fromView(null, "ICD10",null, op.fragmentIdCol('icdDocId'));
+const q = claim
+  .joinInner(icd, op.on(claim.col('diagnosisPrimary'), icd.col('alt_code'))) 
+  .select([claim.col('claimId'), claim.col('diagnosisPrimary'), icd.col('alt_code'), claim.col('netPaymentAmount'), claim.col('benefitCodeDescription'), icd.col('full_description'), 'icdDocId'])
+  .where(op.eq(true, op.fn.matches(icd.col('full_description'),'diabetes')))
+  .limit(200)
+
+q.result();
+
+//encodeURIComponent(JSON.stringify(q.export()))</query><query name="Optic Search" focus="false" listorder="16" taborder="4" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+
+const claimView = op.fromView(null, 'Claim');
+const icdView = op.fromView(null, 'ICD10', '', op.fragmentIdCol('docId'));
+const icdSearch = op.fromSearch(cts.andQuery([
+  cts.collectionQuery(['ICD10']),
+  cts.jsonPropertyWordQuery('full_description', 'diabetes'),
+  cts.jsonPropertyWordQuery('full_description', ['macular','eye','retina'])
+]));
+
+icdSearch
+  .joinInner(icdView, op.on('fragmentId', 'docId'))
+  .joinInner(claimView, op.on(claimView.col('diagnosisPrimary'), 'alt_code'))
+  .select(['benefitCodeDescription', 'diagnosisPrimary', 'alt_code','full_description','netPaymentAmount'])
+  .limit(200)
+  .result();</query><query name="Optic REST" focus="false" listorder="17" taborder="5" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+
+'use strict';
+const op = require('/MarkLogic/optic');
+const claim = op.fromView(null, "Claim");
+const icd = op.fromView(null, "ICD10",null, op.fragmentIdCol('icdDocId'));
+const q = claim
+  .joinInner(icd, op.on(claim.col('diagnosisPrimary'), icd.col('alt_code'))) 
+  .select([claim.col('claimId'), claim.col('diagnosisPrimary'), icd.col('alt_code'), claim.col('netPaymentAmount'), claim.col('benefitCodeDescription'), icd.col('full_description'), 'icdDocId'])
+  .where(op.eq(true, op.fn.matches(icd.col('full_description'),'diabetes')))
+  .limit(1000)
+
+// Execute Query via REST 'GET'
+xdmp.httpGet('http://localhost:8021/v1/rows?plan=' + encodeURI(JSON.stringify(q.export())),
+  {
+    "authentication": {
+    "method" : "digest",
+    "username" : "admin",
+    "password" : "admin"
+   },
+   "headers": { "Accept":"application/json" }
+});</query><query name="Optic DSL" focus="false" listorder="18" taborder="6" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+
+const claimView = op.fromView(null, 'Claim');
+const icdView = op.fromView(null, 'ICD10', '', op.fragmentIdCol('docId'));
+const icdSearch = op.fromSearch(cts.andQuery([
+  cts.collectionQuery(['ICD10']),
+  cts.jsonPropertyWordQuery('full_description', 'diabetes'),
+  cts.jsonPropertyWordQuery('full_description', ['macular','eye','retina'])
+]));
+
+const q = icdSearch
+  .joinInner(icdView, op.on('fragmentId', 'docId'))
+  .joinInner(claimView, op.on(claimView.col('diagnosisPrimary'), 'alt_code'))
+  .select(['benefitCodeDescription', 'diagnosisPrimary', 'alt_code','full_description','netPaymentAmount'])
+  .limit(200)
+
+q.result();</query><query name="Optic Diabetes II" focus="false" listorder="19" taborder="6" active="false" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+const op = require('/MarkLogic/optic');
+
+const claimView = op.fromView(null, 'Claim');
+const icdView = op.fromView(null, 'ICD10', '', op.fragmentIdCol('docId'));
+const icdSearch = op.fromSearch(cts.andQuery([
+  cts.collectionQuery(['ICD10']),
+  cts.jsonPropertyWordQuery('full_description', 'diabetes'),
+  cts.jsonPropertyWordQuery('full_description', ['macular','eye','retina'])
+]));
+
+icdSearch
+  .joinInner(icdView, op.on('fragmentId', 'docId'))
+  .limit(200)
+  .result();
+</query><query name="Query 3" focus="false" listorder="20" taborder="20" active="true" database="5372172933790329518" server="13660127523684743750" database-name="quantum-STAGING" server-name="quantum-STAGING" mode="javascript">'use strict';
+let txt = cts.doc("/ingest/quantum/claim/3955981b-5a9a-4667-81db-c135265f94a5.json");
+txt;
+</query><query name="Triples TDE" focus="false" listorder="21" taborder="21" active="true" database="12493118002161842531" server="8825663742936403790" database-name="quantum-FINAL" server-name="quantum-FINAL" mode="javascript">'use strict';
+declareUpdate();
+const tde = require("/MarkLogic/tde.xqy");
+const json = {
+    "template": {
+        "description": "TDE Template for custom Patient triples",
+        "context": "/envelope/instance/Patient[resourceId]",
+        "enabled": false,
+        "collections": [
+            "Patient"
+        ],
+        "vars": [
+            {
+                "name": "patient",
+                "val": "sem:iri('http://wps.com/resource/Patient/'||resourceId)"
+            },
+            {
+                "name": "rel",
+                "val": "'http://wps.com/relates-to/'"
+            }
+        ],
+        "triples": [
+            {
+                "subject": {
+                    "val": "$patient"
+                },
+                "predicate": {
+                    "val": "sem:iri($rel||'resourceId')"
+                },
+                "object": {
+                    "val": "xs:string(resourceId)"
+                }
+            }
+        ],
+        "templates": [
+            {
+                "context": "names[1]/name[familyName]",
+                "triples": [
+                    {
+                        "subject": {
+                            "val": "$patient"
+                        },
+                        "predicate": {
+                            "val": "sem:iri($rel||'familyName')"
+                        },
+                        "object": {
+                            "val": "xs:string(familyName)"
+                        }
+                    }
+                ]
+            },
+            {
+                "context": "identifiers/identifier[identifierType='SSN']",
+                "triples": [
+                    {
+                        "subject": {
+                            "val": "$patient"
+                        },
+                        "predicate": {
+                            "val": "sem:iri($rel||'ssn')"
+                        },
+                        "object": {
+                            "val": "xs:string(identifierValue)"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+const template = xdmp.toJSON(json);
+const validation = tde.validate([template]);
+validation;
+//template;
+
+
+
+</query></workspace></export>
