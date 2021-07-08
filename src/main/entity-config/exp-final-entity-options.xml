@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <search:options xml:lang="zxx" xmlns:search="http://marklogic.com/appservices/search">
   <search:constraint name="Collection">
     <search:collection>
